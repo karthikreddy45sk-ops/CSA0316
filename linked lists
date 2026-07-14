@@ -1,0 +1,51 @@
+int printf(const char *format, ...);
+void* malloc(unsigned long size);
+void free(void *ptr);
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void printList(struct Node* n) {
+    while (n != ((void*)0)) {
+        printf("%d -> ", n->data);
+        n = n->next;
+    }
+    printf("NULL\n");
+}
+
+void freeList(struct Node* head) {
+    struct Node* temp;
+    while (head != ((void*)0)) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+int main() {
+    struct Node* head = ((void*)0);
+    struct Node* second = ((void*)0);
+    struct Node* third = ((void*)0);
+
+    head = (struct Node*)malloc(sizeof(struct Node));
+    second = (struct Node*)malloc(sizeof(struct Node));
+    third = (struct Node*)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = ((void*)0);
+
+    printf("Linked List: ");
+    printList(head);
+
+    freeList(head);
+
+    return 0;
+}
